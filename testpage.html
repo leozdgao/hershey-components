@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="dist/hershey.css">
+	<script src="dist/lib/jquery.min.js"></script>
+	<script src="dist/hershey.js"></script>
+	<title>Hershey</title>
+	<style>
+	.demo-container {
+		width: 1000px;
+		margin: 40px auto 0;
+	}
+	</style>
+</head>
+<body>
+	<div class="demo-container">
+		<div class="tooltip-demo">
+			<button title="Test tooltip 测试">Test</button>
+		</div>
+	</div>
+	<script>
+	'use strict';
+	$(function() {
+
+		$('.tooltip-demo button').tooltip();
+	});
+	</script>
+</body>
+</html>

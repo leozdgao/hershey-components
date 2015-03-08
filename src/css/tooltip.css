@@ -1,0 +1,50 @@
+.tooltip {
+	position: absolute;
+	display: inline-block;
+
+	font-size: 0.8em;
+	margin: 0.3em;
+	padding: 0.5em 0.8em;
+	border-radius: 0.2em;
+	background-color: #fff;
+	color: #337ab7;
+	text-align: center;
+	max-width: 100px;
+	z-index: 1000;
+	
+	border: 1px solid #337ab7;
+	box-shadow: 0px 0px 1px #337ab7;
+
+	opacity: 0;
+	transition: all 0.3s;
+}
+
+.tooltip>.caret {
+	top: 50%;
+	left: 100%;
+	position: absolute;
+	display: block;
+	margin-top: -6px;
+	border: 6px solid transparent;
+	border-left-color: #337ab7;
+}
+
+.tooltip>.caret:after {
+	
+	content: '';
+	top: 50%;
+	left: -7px;
+	position: absolute;
+	display: block;
+	margin-top: -6px;
+	border: 6px solid transparent;
+	border-left-color: #fff;
+}
+
+.tooltip.fadeIn {
+	opacity: 1;
+}
+
+.tooltip.fadeOut {
+	opacity: 0;
+}

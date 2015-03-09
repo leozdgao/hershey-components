@@ -67,6 +67,7 @@
 	top: 0;
 	left: 50%;
 	margin-top: -12px;
+	margin-left: -6px;
 	border-bottom-color: #337ab7;
 }
 .tooltip.bottom>.caret:after {

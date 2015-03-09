@@ -73,8 +73,7 @@ body {
 	box-shadow: 0px 0px 1px #337ab7;
 
 	opacity: 0;
-	-webkit-transition: opacity,-webkit-transform 0.5s, 0.3s;
-	        transition: opacity,transform 0.5s, 0.3s;
+	transition: opacity,transform 0.5s, 0.3s;
 }
 
 .tooltip>.caret,.caret:after {
@@ -125,6 +124,7 @@ body {
 	top: 0;
 	left: 50%;
 	margin-top: -12px;
+	margin-left: -6px;
 	border-bottom-color: #337ab7;
 }
 .tooltip.bottom>.caret:after {
@@ -144,27 +144,17 @@ body {
 }
 
 .tooltip.slideleft {
-	-webkit-transform: translateX(-10px);
-	    -ms-transform: translateX(-10px);
-	        transform: translateX(-10px);
+	transform: translateX(-10px);
 }
 .tooltip.slideright {
-	-webkit-transform: translateX(10px);
-	    -ms-transform: translateX(10px);
-	        transform: translateX(10px);
+	transform: translateX(10px);
 }
 .tooltip.slidetop {
-	-webkit-transform: translateY(-10px);
-	    -ms-transform: translateY(-10px);
-	        transform: translateY(-10px);
+	transform: translateY(-10px);
 }
 .tooltip.slidebottom {
-	-webkit-transform: translateY(10px);
-	    -ms-transform: translateY(10px);
-	        transform: translateY(10px);
+	transform: translateY(10px);
 }
 .tooltip.positioned {
-	-webkit-transform: translate(0,0);
-	    -ms-transform: translate(0,0);
-	        transform: translate(0,0);
+	transform: translate(0,0);
 }

@@ -1,6 +1,7 @@
 module.exports = {
 	lib: [
-		'node_modules/jquery/dist/jquery.min.js'
+		'node_modules/jquery/dist/jquery.min.js',
+		'node_modules/jquery/dist/jquery.min.map'
 	],
 	js: [
 		'src/js/*.js'

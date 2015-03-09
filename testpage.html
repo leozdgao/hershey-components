@@ -16,14 +16,29 @@
 <body>
 	<div class="demo-container">
 		<div class="tooltip-demo">
-			<button title="Test tooltip 测试">Test</button>
+			<button>Test</button>
+			<button>Test</button>
+			<button>Test</button>
+			<button>Test</button>
 		</div>
 	</div>
 	<script>
 	'use strict';
 	$(function() {
 
-		$('.tooltip-demo button').tooltip();
+		$('.tooltip-demo button').tooltip({
+			'title': function(i) {
+				return "Test tooltip 测试 " + i;
+			},
+			'direction': function(index) {
+				switch(index) {
+					case 0: return 'left';
+					case 1: return 'top';
+					case 2: return 'bottom';
+					case 3: return 'right';
+				}
+			} 
+		});
 	});
 	</script>
 </body>

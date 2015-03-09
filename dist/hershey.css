@@ -77,22 +77,60 @@ body {
 }
 
 .tooltip>.caret,.caret:after {
-	top: 50%;
-	left: 100%;
 	position: absolute;
 	display: block;
 	margin-top: -6px;
 	border: 6px solid transparent;
+}
+
+/*Position*/
+.tooltip.left>.caret {
+	top: 50%;
+	left: 100%;
 	border-left-color: #337ab7;
 }
-
-.tooltip>.caret:after {
-	content: '';
+.tooltip.left>.caret:after {
 	top: 50%;
 	left: -7px;
+	content: '';
 	border-left-color: #fff;
 }
+.tooltip.right>.caret {
+	top: 50%;
+	left: -13px;
+	border-right-color: #337ab7;
+}
+.tooltip.right>.caret:after {
+	top: 50%;
+	left: -5px;
+	content: '';
+	border-right-color: #fff;
+}
+/* TODO
+.tooltip.top>.caret {
+	top: 50%;
+	left: -13px;
+	border-top-color: #337ab7;
+}
+.tooltip.top>.caret:after {
+	top: 50%;
+	left: -5px;
+	content: '';
+	border-top-color: #fff;
+}
+.tooltip.bottom>.caret {
+	top: 50%;
+	left: -13px;
+	border-bottom-color: #337ab7;
+}
+.tooltip.bottom>.caret:after {
+	top: 50%;
+	left: -5px;
+	content: '';
+	border-bottom-color: #fff;
+}*/
 
+/*Animation*/
 .tooltip.fadeIn {
 	opacity: 1;
 }
@@ -101,16 +139,16 @@ body {
 	opacity: 0;
 }
 
-.tooltip.slideLeft {
+.tooltip.slideleft {
 	transform: translateX(-10px);
 }
-.tooltip.slideRight {
+.tooltip.slideright {
 	transform: translateX(10px);
 }
-.tooltip.slideTop {
+.tooltip.slidetop {
 	transform: translateY(-10px);
 }
-.tooltip.slideButtom {
+.tooltip.slidebottom {
 	transform: translateY(10px);
 }
 .tooltip.positioned {

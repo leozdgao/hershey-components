@@ -34,44 +34,47 @@
 }
 .tooltip.left>.caret:after {
 	top: 50%;
-	left: -7px;
+	left: 0;
+	margin-left: -7px;
 	content: '';
 	border-left-color: #fff;
 }
 .tooltip.right>.caret {
 	top: 50%;
-	left: -13px;
+	left: 0;
+	margin-left: -13px;
 	border-right-color: #337ab7;
 }
 .tooltip.right>.caret:after {
-	top: 50%;
-	left: -5px;
+	margin-left: -5px;
 	content: '';
 	border-right-color: #fff;
 }
-/* TODO
 .tooltip.top>.caret {
-	top: 50%;
-	left: -13px;
+	top: 100%;
+	left: 50%;
+	margin-left: -6px;
+	margin-top: 1px;
 	border-top-color: #337ab7;
 }
 .tooltip.top>.caret:after {
-	top: 50%;
-	left: -5px;
+	margin-top: -7px;
+	margin-left: -6px;
 	content: '';
 	border-top-color: #fff;
 }
 .tooltip.bottom>.caret {
-	top: 50%;
-	left: -13px;
+	top: 0;
+	left: 50%;
+	margin-top: -12px;
 	border-bottom-color: #337ab7;
 }
 .tooltip.bottom>.caret:after {
-	top: 50%;
-	left: -5px;
+	margin-top: -5px;
+	margin-left: -6px;
 	content: '';
 	border-bottom-color: #fff;
-}*/
+}
 
 /*Animation*/
 .tooltip.fadeIn {

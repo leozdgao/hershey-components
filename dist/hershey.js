@@ -76,8 +76,13 @@
               $tooltip.addClass('fadeOut');
 
               clr = setTimeout(function() {
+                // reset position
+                $tooltip.css('top', '');
+                $tooltip.css('left', '');
+                // remove effect
                 $tooltip.removeClass('fadeOut');
                 $tooltip.removeClass('positioned');
+                // remove node from DOM
                 $tooltip.remove();
               }, 500);
             }

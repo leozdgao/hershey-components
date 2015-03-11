@@ -9,13 +9,13 @@
     this.$instance.addClass(dir);
     this.$instance.addClass('slide' + dir);
     // set timeout
-    this._clr;
+    this._clr = null;
   }
 
   Tooltip.prototype.setTitle = function(title) {
     this.title = title;
     this.$instance.children('.content').text(title);
-  }
+  };
 
   Tooltip.prototype.show = function($target) {
     // reset timeout
@@ -55,7 +55,7 @@
     // add effect class
     this.$instance.addClass('fadeIn');
     this.$instance.addClass('positioned');
-  }
+  };
 
   Tooltip.prototype.hide = function() {
     // add effect animate
@@ -67,7 +67,7 @@
       
       self.resetState();
     }, 500);
-  }
+  };
 
   Tooltip.prototype.resetState = function() {
     // reset position
@@ -78,7 +78,7 @@
     this.$instance.removeClass('positioned');
 
     this.$instance.remove();
-  }
+  };
 
   $.fn.extend({
     // [direction][class][title][animate]

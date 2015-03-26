@@ -1,0 +1,16 @@
+.range {
+	position: relative;
+	background: #eee;
+	border-radius: 4px;
+	height: 8px;
+}
+
+.range .backdrop {
+	background: green;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 8px;
+	border-radius: 4px;
+	transition: width 1s;
+}

@@ -15,11 +15,14 @@
 </head>
 <body>
 	<div class="demo-container">
-		<div class="tooltip-demo">
+		<!-- <div class="tooltip-demo">
 			<button>Test</button>
 			<button>Test</button>
 			<button>Test</button>
 			<button>Test</button>
+		</div> -->
+		<div class="range">
+			<!-- <div class="backdrop"></div> -->
 		</div>
 	</div>
 	<script>
@@ -39,6 +42,11 @@
 				}
 			} 
 		});
+
+		var per = 0;
+		$('.range').progress(20).progress(40);
+		
+		
 	});
 	</script>
 </body>

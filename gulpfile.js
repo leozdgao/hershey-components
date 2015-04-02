@@ -15,23 +15,23 @@ var del = require('del');
 
 // release
 gulp.task('default', ['release']);
-gulp.task('release', ['release:css', 'release:js', 'copy:lib']);
+gulp.task('release', ['release:css', 'release:js']);
 
 gulp.task('clean', function(cb) {
 
 	del([files.release], cb);
 });
 
-gulp.task('clean:lib', function(cb) {
+// gulp.task('clean:lib', function(cb) {
 
-	del([files.librealse || files.release ], cb);
-});
+// 	del([files.librealse || files.release ], cb);
+// });
 
-gulp.task('copy:lib', ['clean:lib'], function() {
+// gulp.task('copy:lib', ['clean:lib'], function() {
 
-	return gulp.src(files.lib)
-				.pipe(gulp.dest(files.librealse || files.release));
-});
+// 	return gulp.src(files.lib)
+// 				.pipe(gulp.dest(files.librealse || files.release));
+// });
 
 gulp.task('release:css', ['clean'], function() {
 
@@ -64,7 +64,7 @@ gulp.task('release:js', ['clean'], function() { // add jslint and uTest later ma
 
 //-----------------------------------------------> for dev
 
-gulp.task('dev', ['concat', 'watch', 'copy:lib']);
+gulp.task('dev', ['concat', 'watch']);
 gulp.task('concat', ['concat:css', 'concat:js']);
 
 // concat css

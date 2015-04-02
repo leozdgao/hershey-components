@@ -1,121 +1,170 @@
-'use strict';
+(function() {
+	var Utility = {
+		addClass: function (elem, className) {
+			if(elem.classList) elem.classList.add(className);
+			else {
+				elem.className ? (elem.className += (' ' + className)) : (elem.className = className);
+			}
+		},
+		removeClass: function(elem, className) {
+			if(elem.classList) elem.classList.remove(className);
+			else {
+				elem.className = elem.className.replace(new RegExp("\\s*" + className + "\\s*"), ' ');
+			}
+		}
+	}
 
-(function ($) {
+	window.Util = Utility;
+})();
+(function() {
+    var Util = window.Util;
+    // constructor
+    var Tooltip = function() {
 
-  function Tooltip(dir) {
-    this.$instance = $('<div class="tooltip"><div class="caret"></div><div class="content"></div></div>');
-    // set direction
-    this._direction = dir;
-    this.$instance.addClass(dir);
-    this.$instance.addClass('slide' + dir);
-    // set timeout
-    this._clr = null;
-  }
+        this.init();
+    };
 
-  Tooltip.prototype.setTitle = function(title) {
-    this.title = title;
-    this.$instance.children('.content').text(title);
-  };
+    // init dom elemnt
+    Tooltip.prototype.init = function() {
 
-  Tooltip.prototype.show = function($target) {
-    // reset timeout
-    if(this._clr) clearTimeout(this._clr);
-    // remove obsolete effect class
-    this.$instance.removeClass('positioned');
-    this.$instance.removeClass('fadeOut');
-    // set position
-    this.$instance.appendTo('body');
-    var pos = $target.offset(), top, left;
-    // pop left
-    switch(this._direction) {
-      case 'top': {
-        top = pos.top - this.$instance.outerHeight() - 12;
-        left = pos.left + $target.innerWidth() / 2 - this.$instance.innerWidth() / 2 - 1;
-        break;
-      }
-      case 'bottom': {
-        top = pos.top + $target.innerHeight() + 12;
-        left = pos.left + $target.innerWidth() / 2 - this.$instance.innerWidth() / 2 - 1;
-        break;
-      }
-      case 'left': {
-        top = pos.top + $target.innerHeight() / 2 - this.$instance.innerHeight() / 2 - 1;
-        left = pos.left - this.$instance.outerWidth() - 12;
-        break;
-      }
-      case 'right':
-      default: {
-        top = pos.top + $target.innerHeight() / 2 - this.$instance.innerHeight() / 2 - 1;
-        left = pos.left + $target.innerWidth() + 12;
-        break;
-      }
-    }
-    this.$instance.css('top', top);
-    this.$instance.css('left', left);
-    // add effect class
-    this.$instance.addClass('fadeIn');
-    this.$instance.addClass('positioned');
-  };
+        var tooltip = document.createElement('div');
+        tooltip.className = 'tooltip';
+        var caret = document.createElement('div');
+        caret.className = 'caret';
+        var content = document.createElement('div');
+        content.className = 'content';
+        tooltip.appendChild(caret);
+        tooltip.appendChild(content);
 
-  Tooltip.prototype.hide = function() {
-    // add effect animate
-    this.$instance.removeClass('fadeIn');
-    this.$instance.addClass('fadeOut');
+        this.instance = tooltip;
+        this.caret = caret;
+        this.content = content;
 
-    var self = this;
-    this._clr = setTimeout(function() {
-      
-      self.resetState();
-    }, 500);
-  };
-
-  Tooltip.prototype.resetState = function() {
-    // reset position
-    this.$instance.css('top', '');
-    this.$instance.css('left', '');
-    // remove effect
-    this.$instance.removeClass('fadeOut');
-    this.$instance.removeClass('positioned');
-
-    this.$instance.remove();
-  };
-
-  $.fn.extend({
-    // [direction][class][title][animate]
-    tooltip: function(opt) {
-      opt = $.extend({
-        direction: 'right'
-      }, opt);
-      // add tooltip for every matched element
-      this.each(function(index) {
-          
-        var $target = $(this),
-            // get title, the attribute 'title' is priority
-            title = $target.attr('title') || (typeof opt.title == 'function' ? opt.title.call(null, index, this): opt.title),
-            dir =  (typeof opt.direction == 'function') ? opt.direction.call(null, index, this): opt.direction;
-
-        if(title) {
-          var tooltip = new Tooltip(dir);
-          var clr;
-          $target.on({
-            mouseenter: function() {
-              if(clr) clearTimeout(clr);
-
-              // prevent default tilte
-              $target.attr('title', '');
-
-              tooltip.setTitle(title);
-              tooltip.show($target);
-            },
-            mouseleave: function() {
-              // give title back
-              $target.attr('title', title);
-
-              tooltip.hide();
-            }
-          });
+        var self = this;
+        this.tooltipshowHandler = function(e) {
+            show.call(self);
+        } 
+        this.tooltiphideHandler = function(e) {
+            hide.call(self);
         }
-      });
+
+        Object.defineProperty(this, 'title', {
+            get: function() { return this.content.innerText || this.content.textContent; },
+            set: function(title) {
+                this.content.innerText ? (this.content.innerText = title) : (this.content.textContent = title);
+            }
+        });
+    };
+
+    // append tooltip instance to 
+    Tooltip.prototype.appendTo = function(elem, dir, title) {
+
+        // control direction of the tooltip instance
+        dir = dir || 'top';
+        title = title || elem.title;
+        elem.title = ''; // prevent default
+
+        this.target = elem;
+        this.title = title;
+
+        this.setDirection(dir);
+        
+        if(title) {
+            this.target.addEventListener('mouseenter', this.tooltipshowHandler);
+            this.target.addEventListener('mouseleave', this.tooltiphideHandler);
+        }
+    };
+
+    // subtract tooltip instance
+    Tooltip.prototype.subtract = function() {
+
+        if(this.target) {
+            this.target.removeEventListener('mouseenter', this.tooltipshowHandler);
+            this.target.removeEventListener('mouseleave', this.tooltiphideHandler);
+            this.target = null; 
+        }
+    };
+
+    // change the direction of the instance, re-compute position
+    Tooltip.prototype.setDirection = function(dir) {
+        this.dir = dir;
+        Util.addClass(this.instance, dir);
+        Util.addClass(this.instance, 'slide' + dir);
+    };
+
+    // compute the position of tooltip
+    Tooltip.prototype.computePosition = function() {
+
+        var pos = {
+            top: this.target.offsetTop,
+            left: this.target.offsetLeft
+        }, top, left;
+
+        switch(this.dir) {
+          case 'top': {
+            top = pos.top - this.instance.offsetHeight - 6 - 2; // leave some space for two elemnt
+            left = pos.left + this.target.offsetWidth / 2 - this.instance.offsetWidth / 2;
+            break;
+          }
+          case 'bottom': {
+            top = pos.top + this.target.offsetHeight + 6 + 2;
+            left = pos.left + this.target.offsetWidth / 2 - this.instance.offsetWidth / 2;
+            break;
+          }
+          case 'left': {
+            top = pos.top + this.target.offsetHeight / 2 - this.instance.offsetHeight / 2;
+            left = pos.left - this.instance.offsetWidth - 6 - 2;
+            break;
+          }
+          case 'right':
+          default: {
+            top = pos.top + this.target.offsetHeight / 2 - this.instance.offsetHeight / 2;
+            left = pos.left + this.target.offsetWidth + 6 + 2;
+            break;
+          }
+        }
+        return {
+            top: top, left: left
+        }
+    };
+
+     function show() {
+        // clear animate timeout
+        if(this.clr) clearTimeout(this.clr);
+
+        // remove obsolete effect class
+        Util.removeClass(this.instance, 'positioned');
+        Util.removeClass(this.instance, 'fadeOut');
+
+        this.target.parentElement.appendChild(this.instance);
+        
+        var pos = this.computePosition();       
+        this.instance.style.top = pos.top + 'px';
+        this.instance.style.left = pos.left + 'px';
+
+        // add effect class
+        Util.addClass(this.instance, 'fadeIn');
+        Util.addClass(this.instance, 'positioned');
     }
-  });
-})(jQuery);
+
+    function hide() {
+        // add effect animate
+        Util.removeClass(this.instance, 'fadeIn');
+        Util.addClass(this.instance, 'fadeOut');
+
+        var self = this;
+        this.clr = setTimeout(function() {
+          
+          // reset position
+          self.instance.style.top = '';
+          self.instance.style.left = '';
+          // remove effect
+          Util.removeClass(self.instance, 'fadeOut');
+          Util.removeClass(self.instance, 'positioned');
+
+          self.instance.remove();
+        }, 500); // time of animation
+    }
+
+    window.Tooltip = Tooltip;
+})();

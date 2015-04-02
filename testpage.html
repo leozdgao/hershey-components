@@ -3,10 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="dist/hershey.css">
-	<script src="dist/lib/jquery.min.js"></script>
+	<!-- // <script src="dist/lib/jquery.min.js"></script> -->
 	<script src="dist/hershey.js"></script>
 	<title>Hershey</title>
 	<style>
+	* { padding: 0; margin: 0; }
 	.demo-container {
 		width: 1000px;
 		margin: 40px auto 0;
@@ -16,30 +17,51 @@
 <body>
 	<div class="demo-container">
 		<div class="tooltip-demo">
-			<button>Test</button>
-			<button>Test</button>
-			<button>Test</button>
-			<button>Test</button>
+			<button title="test for js">Test</button>
+			<button title="test ccc">Test</button>
+			<button title="halsdk">Test</button>
+			<button title="fassd s">Test</button>
 		</div>
+		<button id="subtract">Click</button>
 	</div>
 	<script>
-	'use strict';
-	$(function() {
+	// 'use strict';
+	// $(function() {
 
-		$('.tooltip-demo button').tooltip({
-			'title': function(i) {
-				return "Test tooltip 测试 " + i;
-			},
-			'direction': function(index) {
-				switch(index) {
-					case 0: return 'left';
-					case 1: return 'top';
-					case 2: return 'bottom';
-					case 3: return 'right';
-				}
-			} 
-		});
+	// 	$('.tooltip-demo button').tooltip({
+	// 		'title': function(i) {
+	// 			return "Test tooltip 测试 " + i;
+	// 		},
+	// 		'direction': function(index) {
+	// 			switch(index) {
+	// 				case 0: return 'left';
+	// 				case 1: return 'top';
+	// 				case 2: return 'bottom';
+	// 				case 3: return 'right';
+	// 			}
+	// 		} 
+	// 	});
+	// });
+	
+	var buttons = document.querySelectorAll('.tooltip-demo button');
+	var tooltips = [];
+	[].forEach.call(buttons, function(button, i) {
+		var dir;
+		switch(i % 4) {
+			case 0: dir = 'left'; break;
+			case 1: dir = 'top'; break;
+			case 2: dir = 'bottom'; break;
+			case 3: dir = 'right'; break;
+		};
+
+		var tooltip = new Tooltip();
+		tooltip.appendTo(button, dir);
+		tooltips.push(tooltip);
 	});
+ 	var btn = document.getElementById('subtract');
+ 	btn.onclick = function() {
+ 		tooltips[0].subtract();
+ 	}
 	</script>
 </body>
 </html>

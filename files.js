@@ -1,9 +1,10 @@
 module.exports = {
-	lib: [
-		'node_modules/jquery/dist/jquery.min.js',
-		'node_modules/jquery/dist/jquery.min.map'
-	],
+	// lib: [
+	// 	'node_modules/jquery/dist/jquery.min.js',
+	// 	'node_modules/jquery/dist/jquery.min.map'
+	// ],
 	js: [
+		'src/js/utils.js',
 		'src/js/*.js'
 	],
 	css: [
@@ -11,6 +12,6 @@ module.exports = {
 	],
 	destJs: 'hershey.js',
 	destCss: 'hershey.css',
-	release: './dist',
-	librealse: './dist/lib'
+	release: './dist'
+	// librealse: './dist/lib'
 };

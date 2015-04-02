@@ -22,26 +22,12 @@
 			<button title="halsdk">Test</button>
 			<button title="fassd s">Test</button>
 		</div>
+		<div class="range">
+		</div>
 		<button id="subtract">Click</button>
 	</div>
 	<script>
-	// 'use strict';
-	// $(function() {
-
-	// 	$('.tooltip-demo button').tooltip({
-	// 		'title': function(i) {
-	// 			return "Test tooltip 测试 " + i;
-	// 		},
-	// 		'direction': function(index) {
-	// 			switch(index) {
-	// 				case 0: return 'left';
-	// 				case 1: return 'top';
-	// 				case 2: return 'bottom';
-	// 				case 3: return 'right';
-	// 			}
-	// 		} 
-	// 	});
-	// });
+	
 	
 	var buttons = document.querySelectorAll('.tooltip-demo button');
 	var tooltips = [];
@@ -57,6 +43,24 @@
 		var tooltip = new Tooltip();
 		tooltip.appendTo(button, dir);
 		tooltips.push(tooltip);
+
+		// $('.tooltip-demo button').tooltip({
+		// 	'title': function(i) {
+		// 		return "Test tooltip 测试 " + i;
+		// 	},
+		// 	'direction': function(index) {
+		// 		switch(index) {
+		// 			case 0: return 'left';
+		// 			case 1: return 'top';
+		// 			case 2: return 'bottom';
+		// 			case 3: return 'right';
+		// 		}
+		// 	} 
+		// });
+
+		// var per = 0;
+		// $('.range').progress(20).progress(40);
+
 	});
  	var btn = document.getElementById('subtract');
  	btn.onclick = function() {

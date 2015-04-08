@@ -1,0 +1,17 @@
+.progress {
+	display: block;
+	position: relative;
+	background: #eee;
+	height: 10px;
+	border-radius: 5px;
+}
+
+.progress .backdrop {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: green;
+	height: 10px;
+	border-radius: 5px;
+	width: 0;
+}

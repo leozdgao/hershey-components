@@ -17,6 +17,57 @@
 	window.Util = Utility;
 })();
 (function() {
+	var Progress = function(elem) {
+		// let the element become a progress bar
+		if(!/progress/.test(elem.className)) throw new Error('The element should with class \'progress\' which is defined by hershey');
+
+		// attach progress backdrop
+		var backdrop = document.createElement('div');
+		backdrop.className = 'backdrop';
+		elem.appendChild(backdrop);
+
+		var value;
+		Object.defineProperty(this, 'value', {
+			get: function() { return value; },
+			set: function(val) {
+				if(isNaN(+val) || val < 0) val = 0;
+				if(val > 100) val = 100;
+				value = val;
+				// set value 0-100
+				backdrop.style.width = val + '%';
+			}
+		});
+	};
+
+	window.Progress = Progress;
+})();
+
+// 'use strict';
+
+// (function ($) {
+//   // var animate
+  
+//   $.fn.extend({
+//     progress: function(percentage) {
+//       percentage = percentage >  100 ? 100 : percentage;
+//       this.each(function() {
+//         var $target = $(this);
+//         var $backdrop = $target.children('.backdrop');
+//         // init state
+//         if($backdrop.length <= 0) {
+//           $backdrop = $('<div class="backdrop"></div>');
+//           $backdrop.appendTo($target);
+//         }
+
+//         var width = $target.width() *percentage / 100;
+//         $backdrop.width(width);
+//       });
+//       return this;
+//     }
+//   });
+
+// })(jQuery);
+(function() {
     var Util = window.Util;
     // constructor
     var Tooltip = function() {

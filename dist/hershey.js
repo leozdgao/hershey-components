@@ -19,7 +19,7 @@
 (function() {
 	var Progress = function(elem) {
 		// let the element become a progress bar
-		if(!/progress/.test(elem.className)) throw new Error('The element should with class \'progress\' which is defined by hershey');
+		if(!elem || !/progress/.test(elem.className)) throw new Error('The element should with class \'progress\' which is defined by hershey');
 
 		// attach progress backdrop
 		var backdrop = document.createElement('div');
@@ -42,31 +42,6 @@
 	window.Progress = Progress;
 })();
 
-// 'use strict';
-
-// (function ($) {
-//   // var animate
-  
-//   $.fn.extend({
-//     progress: function(percentage) {
-//       percentage = percentage >  100 ? 100 : percentage;
-//       this.each(function() {
-//         var $target = $(this);
-//         var $backdrop = $target.children('.backdrop');
-//         // init state
-//         if($backdrop.length <= 0) {
-//           $backdrop = $('<div class="backdrop"></div>');
-//           $backdrop.appendTo($target);
-//         }
-
-//         var width = $target.width() *percentage / 100;
-//         $backdrop.width(width);
-//       });
-//       return this;
-//     }
-//   });
-
-// })(jQuery);
 (function() {
     var Util = window.Util;
     // constructor

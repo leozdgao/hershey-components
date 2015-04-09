@@ -1,7 +1,7 @@
 (function() {
 	var Progress = function(elem) {
 		// let the element become a progress bar
-		if(!/progress/.test(elem.className)) throw new Error('The element should with class \'progress\' which is defined by hershey');
+		if(!elem || !/progress/.test(elem.className)) throw new Error('The element should with class \'progress\' which is defined by hershey');
 
 		// attach progress backdrop
 		var backdrop = document.createElement('div');

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="dist/hershey.css">
 	<!-- // <script src="dist/lib/jquery.min.js"></script> -->
-	<script src="dist/hershey.js"></script>
+	<script src="dist/hershey.min.js"></script>
 	<title>Hershey</title>
 	<style>
 	* { padding: 0; margin: 0; }
@@ -38,7 +38,7 @@
 			case 3: dir = 'right'; break;
 		};
 
-		var tooltip = new Tooltip();
+		var tooltip = new hershey.Tooltip();
 		tooltip.appendTo(button, dir);
 		tooltips.push(tooltip);
 	});
@@ -47,9 +47,5 @@
  		tooltips[0].subtract();
  	}
 	</script>
-	<figure>
-		<fgcaption>Title</fgcaption>
-		<p>Hello world</p>
-	</figure>
 </body>
 </html>

@@ -8,6 +8,7 @@ I write the project for 2 reason:
 
 - learning pure JavaScript plugin without jQuery.
 - practicing CSS
+- try `Webpack` for frontend modularization
 
 ### Components
 

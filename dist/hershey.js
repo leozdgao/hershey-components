@@ -1,22 +1,58 @@
-(function() {
-	var Utility = {
-		addClass: function (elem, className) {
-			if(elem.classList) elem.classList.add(className);
-			else {
-				elem.className ? (elem.className += (' ' + className)) : (elem.className = className);
-			}
-		},
-		removeClass: function(elem, className) {
-			if(elem.classList) elem.classList.remove(className);
-			else {
-				elem.className = elem.className.replace(new RegExp("\\s*" + className + "\\s*"), ' ');
-			}
-		}
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+
+
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	window.hershey = {
+		Progress: __webpack_require__(1),
+		Tooltip: __webpack_require__(2)
 	}
 
-	window.Util = Utility;
-})();
-(function() {
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var Progress = function(elem) {
 		// let the element become a progress bar
 		if(!elem || !/progress/.test(elem.className)) throw new Error('The element should with class \'progress\' which is defined by hershey');
@@ -39,158 +75,185 @@
 		});
 	};
 
-	window.Progress = Progress;
-})();
+	module.exports = Progress;
 
-(function() {
-    var Util = window.Util;
-    // constructor
-    var Tooltip = function() {
 
-        this.init();
-    };
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
 
-    // init dom elemnt
-    Tooltip.prototype.init = function() {
+	var Util = __webpack_require__(3);
+	// constructor
+	var Tooltip = function() {
 
-        var tooltip = document.createElement('div');
-        tooltip.className = 'tooltip';
-        var caret = document.createElement('div');
-        caret.className = 'caret';
-        var content = document.createElement('div');
-        content.className = 'content';
-        tooltip.appendChild(caret);
-        tooltip.appendChild(content);
+	    this.init();
+	};
 
-        this.instance = tooltip;
-        this.caret = caret;
-        this.content = content;
+	// init dom elemnt
+	Tooltip.prototype.init = function() {
 
-        var self = this;
-        this.tooltipshowHandler = function(e) {
-            show.call(self);
-        } 
-        this.tooltiphideHandler = function(e) {
-            hide.call(self);
-        }
+	    var tooltip = document.createElement('div');
+	    tooltip.className = 'tooltip';
+	    var caret = document.createElement('div');
+	    caret.className = 'caret';
+	    var content = document.createElement('div');
+	    content.className = 'content';
+	    tooltip.appendChild(caret);
+	    tooltip.appendChild(content);
 
-        Object.defineProperty(this, 'title', {
-            get: function() { return this.content.innerText || this.content.textContent; },
-            set: function(title) {
-                this.content.innerText ? (this.content.innerText = title) : (this.content.textContent = title);
-            }
-        });
-    };
+	    this.instance = tooltip;
+	    this.caret = caret;
+	    this.content = content;
 
-    // append tooltip instance to 
-    Tooltip.prototype.appendTo = function(elem, dir, title) {
+	    var self = this;
+	    this.tooltipshowHandler = function(e) {
+	        show.call(self);
+	    } 
+	    this.tooltiphideHandler = function(e) {
+	        hide.call(self);
+	    }
 
-        // control direction of the tooltip instance
-        dir = dir || 'top';
-        title = title || elem.title;
-        elem.title = ''; // prevent default
+	    Object.defineProperty(this, 'title', {
+	        get: function() { return this.content.innerText || this.content.textContent; },
+	        set: function(title) {
+	            this.content.innerText ? (this.content.innerText = title) : (this.content.textContent = title);
+	        }
+	    });
+	};
 
-        this.target = elem;
-        this.title = title;
+	// append tooltip instance to 
+	Tooltip.prototype.appendTo = function(elem, dir, title) {
 
-        this.setDirection(dir);
-        
-        if(title) {
-            this.target.addEventListener('mouseenter', this.tooltipshowHandler);
-            this.target.addEventListener('mouseleave', this.tooltiphideHandler);
-        }
-    };
+	    // control direction of the tooltip instance
+	    dir = dir || 'top';
+	    title = title || elem.title;
+	    elem.title = ''; // prevent default
 
-    // subtract tooltip instance
-    Tooltip.prototype.subtract = function() {
+	    this.target = elem;
+	    this.title = title;
 
-        if(this.target) {
-            this.target.removeEventListener('mouseenter', this.tooltipshowHandler);
-            this.target.removeEventListener('mouseleave', this.tooltiphideHandler);
-            this.target = null; 
-        }
-    };
+	    this.setDirection(dir);
+	    
+	    if(title) {
+	        this.target.addEventListener('mouseenter', this.tooltipshowHandler);
+	        this.target.addEventListener('mouseleave', this.tooltiphideHandler);
+	    }
+	};
 
-    // change the direction of the instance, re-compute position
-    Tooltip.prototype.setDirection = function(dir) {
-        this.dir = dir;
-        Util.addClass(this.instance, dir);
-        Util.addClass(this.instance, 'slide' + dir);
-    };
+	// subtract tooltip instance
+	Tooltip.prototype.subtract = function() {
 
-    // compute the position of tooltip
-    Tooltip.prototype.computePosition = function() {
+	    if(this.target) {
+	        this.target.removeEventListener('mouseenter', this.tooltipshowHandler);
+	        this.target.removeEventListener('mouseleave', this.tooltiphideHandler);
+	        this.target = null; 
+	    }
+	};
 
-        var pos = {
-            top: this.target.offsetTop,
-            left: this.target.offsetLeft
-        }, top, left;
+	// change the direction of the instance, re-compute position
+	Tooltip.prototype.setDirection = function(dir) {
+	    this.dir = dir;
+	    Util.addClass(this.instance, dir);
+	    Util.addClass(this.instance, 'slide' + dir);
+	};
 
-        switch(this.dir) {
-          case 'top': {
-            top = pos.top - this.instance.offsetHeight - 6 - 2; // leave some space for two elemnt
-            left = pos.left + this.target.offsetWidth / 2 - this.instance.offsetWidth / 2;
-            break;
-          }
-          case 'bottom': {
-            top = pos.top + this.target.offsetHeight + 6 + 2;
-            left = pos.left + this.target.offsetWidth / 2 - this.instance.offsetWidth / 2;
-            break;
-          }
-          case 'left': {
-            top = pos.top + this.target.offsetHeight / 2 - this.instance.offsetHeight / 2;
-            left = pos.left - this.instance.offsetWidth - 6 - 2;
-            break;
-          }
-          case 'right':
-          default: {
-            top = pos.top + this.target.offsetHeight / 2 - this.instance.offsetHeight / 2;
-            left = pos.left + this.target.offsetWidth + 6 + 2;
-            break;
-          }
-        }
-        return {
-            top: top, left: left
-        }
-    };
+	// compute the position of tooltip
+	Tooltip.prototype.computePosition = function() {
 
-     function show() {
-        // clear animate timeout
-        if(this.clr) clearTimeout(this.clr);
+	    var pos = {
+	        top: this.target.offsetTop,
+	        left: this.target.offsetLeft
+	    }, top, left;
 
-        // remove obsolete effect class
-        Util.removeClass(this.instance, 'positioned');
-        Util.removeClass(this.instance, 'fadeOut');
+	    switch(this.dir) {
+	      case 'top': {
+	        top = pos.top - this.instance.offsetHeight - 6 - 2; // leave some space for two elemnt
+	        left = pos.left + this.target.offsetWidth / 2 - this.instance.offsetWidth / 2;
+	        break;
+	      }
+	      case 'bottom': {
+	        top = pos.top + this.target.offsetHeight + 6 + 2;
+	        left = pos.left + this.target.offsetWidth / 2 - this.instance.offsetWidth / 2;
+	        break;
+	      }
+	      case 'left': {
+	        top = pos.top + this.target.offsetHeight / 2 - this.instance.offsetHeight / 2;
+	        left = pos.left - this.instance.offsetWidth - 6 - 2;
+	        break;
+	      }
+	      case 'right':
+	      default: {
+	        top = pos.top + this.target.offsetHeight / 2 - this.instance.offsetHeight / 2;
+	        left = pos.left + this.target.offsetWidth + 6 + 2;
+	        break;
+	      }
+	    }
+	    return {
+	        top: top, left: left
+	    }
+	};
 
-        this.target.parentElement.appendChild(this.instance);
-        
-        var pos = this.computePosition();       
-        this.instance.style.top = pos.top + 'px';
-        this.instance.style.left = pos.left + 'px';
+	 function show() {
+	    // clear animate timeout
+	    if(this.clr) clearTimeout(this.clr);
 
-        // add effect class
-        Util.addClass(this.instance, 'fadeIn');
-        Util.addClass(this.instance, 'positioned');
-    }
+	    // remove obsolete effect class
+	    Util.removeClass(this.instance, 'positioned');
+	    Util.removeClass(this.instance, 'fadeOut');
 
-    function hide() {
-        // add effect animate
-        Util.removeClass(this.instance, 'fadeIn');
-        Util.addClass(this.instance, 'fadeOut');
+	    this.target.parentElement.appendChild(this.instance);
+	    
+	    var pos = this.computePosition();       
+	    this.instance.style.top = pos.top + 'px';
+	    this.instance.style.left = pos.left + 'px';
 
-        var self = this;
-        this.clr = setTimeout(function() {
-          
-          // reset position
-          self.instance.style.top = '';
-          self.instance.style.left = '';
-          // remove effect
-          Util.removeClass(self.instance, 'fadeOut');
-          Util.removeClass(self.instance, 'positioned');
+	    // add effect class
+	    Util.addClass(this.instance, 'fadeIn');
+	    Util.addClass(this.instance, 'positioned');
+	}
 
-          self.instance.remove();
-        }, 500); // time of animation
-    }
+	function hide() {
+	    // add effect animate
+	    Util.removeClass(this.instance, 'fadeIn');
+	    Util.addClass(this.instance, 'fadeOut');
 
-    window.Tooltip = Tooltip;
-})();
+	    var self = this;
+	    this.clr = setTimeout(function() {
+	      
+	      // reset position
+	      self.instance.style.top = '';
+	      self.instance.style.left = '';
+	      // remove effect
+	      Util.removeClass(self.instance, 'fadeOut');
+	      Util.removeClass(self.instance, 'positioned');
+
+	      self.instance.remove();
+	    }, 500); // time of animation
+	}
+
+	module.exports = Tooltip;
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports.addClass = function (elem, className) {
+
+		if(elem.classList) elem.classList.add(className);
+		else {
+			elem.className ? (elem.className += (' ' + className)) : (elem.className = className);
+		}
+	};
+
+	exports.removeClass = function(elem, className) {
+
+		if(elem.classList) elem.classList.remove(className);
+		else {
+			elem.className = elem.className.replace(new RegExp("\\s*" + className + "\\s*"), ' ');
+		}
+	};
+
+
+/***/ }
+/******/ ]);

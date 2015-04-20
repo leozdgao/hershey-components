@@ -46,8 +46,10 @@
 
 	window.hershey = {
 		Progress: __webpack_require__(1),
-		Tooltip: __webpack_require__(2)
-	}
+		Tooltip: __webpack_require__(2),
+		Carousel: __webpack_require__(3)
+	};
+
 
 /***/ },
 /* 1 */
@@ -82,7 +84,7 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Util = __webpack_require__(3);
+	var utils = __webpack_require__(4);
 	// constructor
 	var Tooltip = function() {
 
@@ -108,7 +110,7 @@
 	    var self = this;
 	    this.tooltipshowHandler = function(e) {
 	        show.call(self);
-	    } 
+	    }
 	    this.tooltiphideHandler = function(e) {
 	        hide.call(self);
 	    }
@@ -153,8 +155,8 @@
 	// change the direction of the instance, re-compute position
 	Tooltip.prototype.setDirection = function(dir) {
 	    this.dir = dir;
-	    Util.addClass(this.instance, dir);
-	    Util.addClass(this.instance, 'slide' + dir);
+	    utils.addClass(this.instance, dir);
+	    utils.addClass(this.instance, 'slide' + dir);
 	};
 
 	// compute the position of tooltip
@@ -198,8 +200,8 @@
 	    if(this.clr) clearTimeout(this.clr);
 
 	    // remove obsolete effect class
-	    Util.removeClass(this.instance, 'positioned');
-	    Util.removeClass(this.instance, 'fadeOut');
+	    utils.removeClass(this.instance, 'positioned');
+	    utils.removeClass(this.instance, 'fadeOut');
 
 	    this.target.parentElement.appendChild(this.instance);
 	    
@@ -208,14 +210,14 @@
 	    this.instance.style.left = pos.left + 'px';
 
 	    // add effect class
-	    Util.addClass(this.instance, 'fadeIn');
-	    Util.addClass(this.instance, 'positioned');
+	    utils.addClass(this.instance, 'fadeIn');
+	    utils.addClass(this.instance, 'positioned');
 	}
 
 	function hide() {
 	    // add effect animate
-	    Util.removeClass(this.instance, 'fadeIn');
-	    Util.addClass(this.instance, 'fadeOut');
+	    utils.removeClass(this.instance, 'fadeIn');
+	    utils.addClass(this.instance, 'fadeOut');
 
 	    var self = this;
 	    this.clr = setTimeout(function() {
@@ -224,8 +226,8 @@
 	      self.instance.style.top = '';
 	      self.instance.style.left = '';
 	      // remove effect
-	      Util.removeClass(self.instance, 'fadeOut');
-	      Util.removeClass(self.instance, 'positioned');
+	      utils.removeClass(self.instance, 'fadeOut');
+	      utils.removeClass(self.instance, 'positioned');
 
 	      self.instance.remove();
 	    }, 500); // time of animation
@@ -238,20 +240,102 @@
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var utils = __webpack_require__(4);
+	var offset = 0, cit;
+
+	var Carousel = function(elem) {
+
+	    // var bodySelector = opts.selector || 'carousel';
+	    // var itemSelector = opts.itemSelector || 'carousel-item';
+	    this.instance = elem;
+	    this.items = [].slice.call(elem.children);
+	    this.autoPlaying = false;
+
+	    var self = this;
+	    offset = parseInt(window.getComputedStyle(this.instance.parentElement).width);
+	    
+	    var current = 0;
+	    Object.defineProperty(self, "current", {
+	        get: function() { return current; },
+	        set: function(i) {
+	            // adjust index
+	            i = this.items.length && (i % this.items.length);
+	            while(i < 0) i += this.items.length;
+
+	            self.goto(i);
+	            current = i;
+	        }
+	    });
+	};
+
+	Carousel.prototype.goto = function(i) {
+	    var left = i * (- offset);
+	    this.instance.style.left = left + 'px';
+	};
+
+	Carousel.prototype.prev = function() {
+	    this.current --;
+	};
+
+	Carousel.prototype.next = function() {
+	    this.current ++;
+	};
+
+	Carousel.prototype.autoPlay = function(interval) {
+	    var self = this;
+	    self.autoPlaying = true;
+
+	    if(cit) clearInterval(cit);
+
+	    cit = setInterval(function() {
+	        self.current ++;
+	    }, interval);
+	};
+
+	Carousel.prototype.pause = function() {
+	    this.autoPlaying = false;
+	    if(cit) clearInterval(cit);
+	};
+
+	module.exports = Carousel;
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
 	exports.addClass = function (elem, className) {
 
-		if(elem.classList) elem.classList.add(className);
-		else {
-			elem.className ? (elem.className += (' ' + className)) : (elem.className = className);
-		}
+	    if(elem.classList) elem.classList.add(className);
+	    else {
+	        elem.className ? (elem.className += (' ' + className)) : (elem.className = className);
+	    }
 	};
 
 	exports.removeClass = function(elem, className) {
 
-		if(elem.classList) elem.classList.remove(className);
-		else {
-			elem.className = elem.className.replace(new RegExp("\\s*" + className + "\\s*"), ' ');
-		}
+	    if(elem.classList) elem.classList.remove(className);
+	    else {
+	        elem.className = elem.className.replace(new RegExp("\\s*" + className + "\\s*"), ' ');
+	    }
+	};
+
+	var es5obj = true;
+	try {
+	    Object.defineProperty({}, "x", "");
+	}
+	catch(e) { es5obj = false; }
+
+	exports.es5obj = es5obj;
+
+	// undefined or null
+	exports.isDefined = function(obj) {
+	    return obj != null;
+	};
+
+	// judge object is DOM element or not
+	exports.isDOMElement = function(elem) {
+	    
 	};
 
 

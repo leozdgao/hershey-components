@@ -1,3 +1,24 @@
+.carousel {
+	position: relative;
+	overflow: hidden;
+	height: 300px;
+	width: 450px;
+}
+
+.carousel .list {
+	position: relative;
+	left: 0;
+	height: 100%;
+	width: 1800px;
+	z-index: 1;
+	transition: left 0.5s;
+}
+
+.carousel img { float: left; }
+
+/*debug*/
+.carousel button { z-index: 10; }
+
 /**
  * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
  * http://cssreset.com
@@ -86,8 +107,7 @@ body {
 	left: 0;
 	height: 8px;
 	border-radius: 4px;
-	-webkit-transition: width 1s;
-	        transition: width 1s;
+	transition: width 1s;
 }
 .tooltip {
 	position: absolute;
@@ -106,8 +126,7 @@ body {
 	box-shadow: 0px 0px 1px #337ab7;
 
 	opacity: 0;
-	-webkit-transition: opacity,-webkit-transform 0.5s, 0.3s;
-	        transition: opacity,transform 0.5s, 0.3s;
+	transition: opacity,transform 0.5s, 0.3s;
 }
 
 .tooltip>.caret,.caret:after {
@@ -178,27 +197,17 @@ body {
 }
 
 .tooltip.slideleft {
-	-webkit-transform: translateX(-10px);
-	    -ms-transform: translateX(-10px);
-	        transform: translateX(-10px);
+	transform: translateX(-10px);
 }
 .tooltip.slideright {
-	-webkit-transform: translateX(10px);
-	    -ms-transform: translateX(10px);
-	        transform: translateX(10px);
+	transform: translateX(10px);
 }
 .tooltip.slidetop {
-	-webkit-transform: translateY(-10px);
-	    -ms-transform: translateY(-10px);
-	        transform: translateY(-10px);
+	transform: translateY(-10px);
 }
 .tooltip.slidebottom {
-	-webkit-transform: translateY(10px);
-	    -ms-transform: translateY(10px);
-	        transform: translateY(10px);
+	transform: translateY(10px);
 }
 .tooltip.positioned {
-	-webkit-transform: translate(0,0);
-	    -ms-transform: translate(0,0);
-	        transform: translate(0,0);
+	transform: translate(0,0);
 }

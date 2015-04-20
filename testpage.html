@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="dist/hershey.css">
 	<!-- // <script src="dist/lib/jquery.min.js"></script> -->
-	<script src="dist/hershey.min.js"></script>
+	<script src="dist/hershey.js"></script>
 	<title>Hershey</title>
 	<style>
 	* { padding: 0; margin: 0; }
@@ -16,6 +16,7 @@
 </head>
 <body>
 	<div class="demo-container">
+		<!-- Tootip demo -->
 		<div class="tooltip-demo">
 			<button title="test for js">Test</button>
 			<button title="test ccc">Test</button>
@@ -25,8 +26,20 @@
 		<div class="range">
 		</div>
 		<button id="subtract">Click</button>
+		<!-- Carousel demo -->
+		<div class="carousel">
+			<div class="list">
+				<img src="http://placehold.it/450x300/E97452/fff">
+				<img src="http://placehold.it/450x300/4C6EB4/fff">
+				<img src="http://placehold.it/450x300/449F93/fff">
+				<img src="http://placehold.it/450x300/936FBC/fff">
+			</div>
+		</div>
+		<button id="prev">Prev</button>
+		<button id="next">Next</button>
 	</div>
 	<script>
+	// Tooltip demo
 	var buttons = document.querySelectorAll('.tooltip-demo button');
 	var tooltips = [];
 	[].forEach.call(buttons, function(button, i) {
@@ -45,7 +58,19 @@
  	var btn = document.getElementById('subtract');
  	btn.onclick = function() {
  		tooltips[0].subtract();
- 	}
+ 	};
+ 	// Carousel demo
+ 	var imgList = document.querySelector('.carousel .list');
+ 	var btnPrev = document.getElementById('prev');
+ 	var btnNext = document.getElementById('next');
+ 	var carousel = new hershey.Carousel(imgList);
+ 	btnPrev.addEventListener('click', function(e) {
+ 		carousel.prev();
+ 	});
+ 	btnNext.addEventListener('click', function(e) {
+ 		carousel.next();
+ 	});
+ 	carousel.autoPlay(3000);
 	</script>
 </body>
 </html>

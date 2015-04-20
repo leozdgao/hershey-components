@@ -1,4 +1,5 @@
 window.hershey = {
 	Progress: require('./progress'),
-	Tooltip: require('./tooltip')
+	Tooltip: require('./tooltip'),
+	Carousel: require('./carousel')
 };

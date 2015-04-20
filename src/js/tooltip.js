@@ -1,4 +1,4 @@
-var Util = require('./utils');
+var utils = require('./utils');
 // constructor
 var Tooltip = function() {
 
@@ -24,7 +24,7 @@ Tooltip.prototype.init = function() {
     var self = this;
     this.tooltipshowHandler = function(e) {
         show.call(self);
-    } 
+    }
     this.tooltiphideHandler = function(e) {
         hide.call(self);
     }
@@ -69,8 +69,8 @@ Tooltip.prototype.subtract = function() {
 // change the direction of the instance, re-compute position
 Tooltip.prototype.setDirection = function(dir) {
     this.dir = dir;
-    Util.addClass(this.instance, dir);
-    Util.addClass(this.instance, 'slide' + dir);
+    utils.addClass(this.instance, dir);
+    utils.addClass(this.instance, 'slide' + dir);
 };
 
 // compute the position of tooltip
@@ -114,8 +114,8 @@ Tooltip.prototype.computePosition = function() {
     if(this.clr) clearTimeout(this.clr);
 
     // remove obsolete effect class
-    Util.removeClass(this.instance, 'positioned');
-    Util.removeClass(this.instance, 'fadeOut');
+    utils.removeClass(this.instance, 'positioned');
+    utils.removeClass(this.instance, 'fadeOut');
 
     this.target.parentElement.appendChild(this.instance);
     
@@ -124,14 +124,14 @@ Tooltip.prototype.computePosition = function() {
     this.instance.style.left = pos.left + 'px';
 
     // add effect class
-    Util.addClass(this.instance, 'fadeIn');
-    Util.addClass(this.instance, 'positioned');
+    utils.addClass(this.instance, 'fadeIn');
+    utils.addClass(this.instance, 'positioned');
 }
 
 function hide() {
     // add effect animate
-    Util.removeClass(this.instance, 'fadeIn');
-    Util.addClass(this.instance, 'fadeOut');
+    utils.removeClass(this.instance, 'fadeIn');
+    utils.addClass(this.instance, 'fadeOut');
 
     var self = this;
     this.clr = setTimeout(function() {
@@ -140,8 +140,8 @@ function hide() {
       self.instance.style.top = '';
       self.instance.style.left = '';
       // remove effect
-      Util.removeClass(self.instance, 'fadeOut');
-      Util.removeClass(self.instance, 'positioned');
+      utils.removeClass(self.instance, 'fadeOut');
+      utils.removeClass(self.instance, 'positioned');
 
       self.instance.remove();
     }, 500); // time of animation

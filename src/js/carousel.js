@@ -1,46 +1,52 @@
 var utils = require('./utils');
+var offset = 0, cit;
 
-var Carousel = function(opts) {
-    opts = opts || {};
+var Carousel = function(elem) {
 
-    var bodySelector = opts.bodySelector || 'carousel';
-    var itemSelector = opts.itemSelector || 'carousel-item';
-    this.instance = document.querySelector(bodySelector);
-    this.items = this.instance ? this.instance.querySelectorAll(itemSelector) : [];
+    // var bodySelector = opts.selector || 'carousel';
+    // var itemSelector = opts.itemSelector || 'carousel-item';
+    this.instance = elem;
+    this.items = [].slice.call(elem.children);
     this.autoPlaying = false;
 
     var self = this;
+    offset = parseInt(window.getComputedStyle(this.instance.parentElement).width);
     
     var current = 0;
     Object.defineProperty(self, "current", {
         get: function() { return current; },
         set: function(i) {
             // adjust index
-            while(i < 0) i += this.items.length;
             i = this.items.length && (i % this.items.length);
+            while(i < 0) i += this.items.length;
 
             self.goto(i);
+            current = i;
         }
     });
 };
 
 Carousel.prototype.goto = function(i) {
-    
+    var left = i * (- offset);
+    this.instance.style.left = left + 'px';
 };
 
 Carousel.prototype.prev = function() {
-    // body...
+    this.current --;
 };
 
 Carousel.prototype.next = function() {
-    // body...
+    this.current ++;
 };
 
-var cit;
 Carousel.prototype.autoPlay = function(interval) {
-    this.autoPlaying = true;
-    cit = setInterval(function() {
+    var self = this;
+    self.autoPlaying = true;
 
+    if(cit) clearInterval(cit);
+
+    cit = setInterval(function() {
+        self.current ++;
     }, interval);
 };
 

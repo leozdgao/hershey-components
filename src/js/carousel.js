@@ -3,8 +3,8 @@ var offset = 0, cit;
 
 var Carousel = function(elem) {
 
-    // var bodySelector = opts.selector || 'carousel';
-    // var itemSelector = opts.itemSelector || 'carousel-item';
+    if(!utils.isDOMElement(elem)) throw new Error("Only accept the HTMLElement.");
+
     this.instance = elem;
     this.items = [].slice.call(elem.children);
     this.autoPlaying = false;

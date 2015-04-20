@@ -123,8 +123,10 @@
 	    });
 	};
 
-	// append tooltip instance to 
+	// append tooltip instance to element
 	Tooltip.prototype.appendTo = function(elem, dir, title) {
+
+	    if(!utils.isDOMElement(elem)) throw new Error("Only accept the HTMLElement.");
 
 	    // control direction of the tooltip instance
 	    dir = dir || 'top';
@@ -245,8 +247,8 @@
 
 	var Carousel = function(elem) {
 
-	    // var bodySelector = opts.selector || 'carousel';
-	    // var itemSelector = opts.itemSelector || 'carousel-item';
+	    if(!utils.isDOMElement(elem)) throw new Error("Only accept the HTMLElement.");
+
 	    this.instance = elem;
 	    this.items = [].slice.call(elem.children);
 	    this.autoPlaying = false;
@@ -335,7 +337,7 @@
 
 	// judge object is DOM element or not
 	exports.isDOMElement = function(elem) {
-	    
+	    return elem instanceof HTMLElement;
 	};
 
 

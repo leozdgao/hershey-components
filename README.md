@@ -4,7 +4,7 @@
 
 Many common components implemented in pure javascript, use ES5 Obejct API, support: IE9+
 
-I write the project for 2 reason:
+I write the project for 3 reason:
 
 - learning pure JavaScript plugin without jQuery.
 - practicing CSS
@@ -14,5 +14,6 @@ I write the project for 2 reason:
 
 - Tooltip
 - Progress
+- Carousel
 
 still working on it... a github page for it later.

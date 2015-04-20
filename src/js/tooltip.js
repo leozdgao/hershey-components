@@ -37,8 +37,10 @@ Tooltip.prototype.init = function() {
     });
 };
 
-// append tooltip instance to 
+// append tooltip instance to element
 Tooltip.prototype.appendTo = function(elem, dir, title) {
+
+    if(!utils.isDOMElement(elem)) throw new Error("Only accept the HTMLElement.");
 
     // control direction of the tooltip instance
     dir = dir || 'top';

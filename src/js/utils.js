@@ -29,5 +29,5 @@ exports.isDefined = function(obj) {
 
 // judge object is DOM element or not
 exports.isDOMElement = function(elem) {
-    
+    return elem instanceof HTMLElement;
 };

@@ -145,7 +145,7 @@ function hide() {
       utils.removeClass(self.instance, 'fadeOut');
       utils.removeClass(self.instance, 'positioned');
 
-      self.instance.remove();
+      self.instance.parentElement.removeChild(self.instance);
     }, 500); // time of animation
 }
 

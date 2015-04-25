@@ -12,6 +12,17 @@
 		width: 1000px;
 		margin: 40px auto 0;
 	}
+	#form-demo {
+		margin-top: 10px;
+	}
+	.form-group {
+		margin: 5px 0;
+		font-size: 14px;
+	}
+	.form-group label {
+		display: inline-block;
+		width: 80px;
+	}
 	</style>
 </head>
 <body>
@@ -37,6 +48,34 @@
 		</div>
 		<button id="prev">Prev</button>
 		<button id="next">Next</button>
+		<div id="form-demo">
+			<div class="form-group">
+				<label for="">Name</label> <input class="neat" placeholder="Who are you?">
+			</div>
+			<div class="form-group">
+				<label for="">Email</label> <input class="neat" placeholder="Your email here">	
+			</div>
+			<div class="form-group">
+				<label for="">Sex</label> <input class="neat" placeholder="Male or Female?">	
+			</div>
+			<div class="form-group">
+				<label for="">Language</label> <input class="neat" placeholder="Optional">	
+			</div>
+		</div>
+		<div id="form-demo2" class="form-reverse">
+			<div class="form-group">
+				<label for="">Name</label> <input class="neat" placeholder="Who are you?">
+			</div>
+			<div class="form-group">
+				<label for="">Email</label> <input class="neat" placeholder="Your email here">	
+			</div>
+			<div class="form-group">
+				<label for="">Sex</label> <input class="neat" placeholder="Male or Female?">	
+			</div>
+			<div class="form-group">
+				<label for="">Language</label> <input class="neat" placeholder="Optional">	
+			</div>
+		</div>
 	</div>
 	<script>
 	// Tooltip demo
@@ -49,7 +88,7 @@
 			case 1: dir = 'top'; break;
 			case 2: dir = 'bottom'; break;
 			case 3: dir = 'right'; break;
-		};
+		}
 
 		var tooltip = new hershey.Tooltip();
 		tooltip.appendTo(button, dir);
@@ -64,10 +103,10 @@
  	var btnPrev = document.getElementById('prev');
  	var btnNext = document.getElementById('next');
  	var carousel = new hershey.Carousel(imgList);
- 	btnPrev.addEventListener('click', function(e) {
+ 	btnPrev.addEventListener('click', function() {
  		carousel.prev();
  	});
- 	btnNext.addEventListener('click', function(e) {
+ 	btnNext.addEventListener('click', function() {
  		carousel.next();
  	});
  	carousel.autoPlay(3000);

@@ -1,12 +1,12 @@
 var utils = require('./utils');
 // constructor
-var Tooltip = function() {
+var Tooltip = function () {
 
     this.init();
 };
 
 // init dom elemnt
-Tooltip.prototype.init = function() {
+Tooltip.prototype.init = function () {
 
     var tooltip = document.createElement('div');
     tooltip.className = 'tooltip';
@@ -22,25 +22,25 @@ Tooltip.prototype.init = function() {
     this.content = content;
 
     var self = this;
-    this.tooltipshowHandler = function(e) {
+    this.tooltipshowHandler = function (e) {
         show.call(self);
-    }
-    this.tooltiphideHandler = function(e) {
+    };
+    this.tooltiphideHandler = function (e) {
         hide.call(self);
-    }
+    };
 
     Object.defineProperty(this, 'title', {
-        get: function() { return this.content.innerText || this.content.textContent; },
-        set: function(title) {
+        get: function () { return this.content.innerText || this.content.textContent; },
+        set: function (title) {
             this.content.innerText ? (this.content.innerText = title) : (this.content.textContent = title);
         }
     });
 };
 
 // append tooltip instance to element
-Tooltip.prototype.appendTo = function(elem, dir, title) {
+Tooltip.prototype.appendTo = function (elem, dir, title) {
 
-    if(!utils.isDOMElement(elem)) throw new Error("Only accept the HTMLElement.");
+    if (!utils.isDOMElement(elem)) throw new Error("Only accept the HTMLElement.");
 
     // control direction of the tooltip instance
     dir = dir || 'top';
@@ -51,77 +51,79 @@ Tooltip.prototype.appendTo = function(elem, dir, title) {
     this.title = title;
 
     this.setDirection(dir);
-    
-    if(title) {
+
+    if (title) {
         this.target.addEventListener('mouseenter', this.tooltipshowHandler);
         this.target.addEventListener('mouseleave', this.tooltiphideHandler);
     }
 };
 
 // subtract tooltip instance
-Tooltip.prototype.subtract = function() {
+Tooltip.prototype.subtract = function () {
 
-    if(this.target) {
+    if (this.target) {
         this.target.removeEventListener('mouseenter', this.tooltipshowHandler);
         this.target.removeEventListener('mouseleave', this.tooltiphideHandler);
-        this.target = null; 
+        this.target = null;
     }
 };
 
 // change the direction of the instance, re-compute position
-Tooltip.prototype.setDirection = function(dir) {
+Tooltip.prototype.setDirection = function (dir) {
     this.dir = dir;
     utils.addClass(this.instance, dir);
     utils.addClass(this.instance, 'slide' + dir);
 };
 
 // compute the position of tooltip
-Tooltip.prototype.computePosition = function() {
+Tooltip.prototype.computePosition = function () {
 
     var pos = {
         top: this.target.offsetTop,
         left: this.target.offsetLeft
     }, top, left;
 
-    switch(this.dir) {
-      case 'top': {
-        top = pos.top - this.instance.offsetHeight - 6 - 2; // leave some space for two elemnt
-        left = pos.left + this.target.offsetWidth / 2 - this.instance.offsetWidth / 2;
-        break;
-      }
-      case 'bottom': {
-        top = pos.top + this.target.offsetHeight + 6 + 2;
-        left = pos.left + this.target.offsetWidth / 2 - this.instance.offsetWidth / 2;
-        break;
-      }
-      case 'left': {
-        top = pos.top + this.target.offsetHeight / 2 - this.instance.offsetHeight / 2;
-        left = pos.left - this.instance.offsetWidth - 6 - 2;
-        break;
-      }
-      case 'right':
-      default: {
-        top = pos.top + this.target.offsetHeight / 2 - this.instance.offsetHeight / 2;
-        left = pos.left + this.target.offsetWidth + 6 + 2;
-        break;
-      }
+    switch (this.dir) {
+        case 'top': {
+            top = pos.top - this.instance.offsetHeight - 6 - 2; // leave some space for two elemnt
+            left = pos.left + this.target.offsetWidth / 2 - this.instance.offsetWidth / 2;
+            break;
+        }
+        case 'bottom': {
+            top = pos.top + this.target.offsetHeight + 6 + 2;
+            left = pos.left + this.target.offsetWidth / 2 - this.instance.offsetWidth / 2;
+            break;
+        }
+        case 'left': {
+            top = pos.top + this.target.offsetHeight / 2 - this.instance.offsetHeight / 2;
+            left = pos.left - this.instance.offsetWidth - 6 - 2;
+            break;
+        }
+        case 'right':
+        default: {
+            top = pos.top + this.target.offsetHeight / 2 - this.instance.offsetHeight / 2;
+            left = pos.left + this.target.offsetWidth + 6 + 2;
+            break;
+        }
     }
+    
     return {
-        top: top, left: left
-    }
+        top: top,
+        left: left
+    };
 };
 
- function show() {
+function show() {
     // clear animate timeout
-    if(this.clr) clearTimeout(this.clr);
+    if (this.clr) clearTimeout(this.clr);
 
     // remove obsolete effect class
     utils.removeClass(this.instance, 'positioned');
     utils.removeClass(this.instance, 'fadeOut');
 
     this.target.parentElement.appendChild(this.instance);
-    
-    var pos = this.computePosition();       
+
+    var pos = this.computePosition();
     this.instance.style.top = pos.top + 'px';
     this.instance.style.left = pos.left + 'px';
 
@@ -136,16 +138,16 @@ function hide() {
     utils.addClass(this.instance, 'fadeOut');
 
     var self = this;
-    this.clr = setTimeout(function() {
+    this.clr = setTimeout(function () {
       
-      // reset position
-      self.instance.style.top = '';
-      self.instance.style.left = '';
-      // remove effect
-      utils.removeClass(self.instance, 'fadeOut');
-      utils.removeClass(self.instance, 'positioned');
+        // reset position
+        self.instance.style.top = '';
+        self.instance.style.left = '';
+        // remove effect
+        utils.removeClass(self.instance, 'fadeOut');
+        utils.removeClass(self.instance, 'positioned');
 
-      self.instance.parentElement.removeChild(self.instance);
+        self.instance.parentElement.removeChild(self.instance);
     }, 500); // time of animation
 }
 

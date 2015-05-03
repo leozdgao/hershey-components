@@ -1,3 +1,5 @@
+var path = require('path');
+
 module.exports = {
 	// lib: [
 	// 	'node_modules/jquery/dist/jquery.min.js',
@@ -12,6 +14,6 @@ module.exports = {
 	],
 	destJs: 'hershey.js',
 	destCss: 'hershey.css',
-	release: './dist'
+	release: path.join(__dirname, 'dist')
 	// librealse: './dist/lib'
 };

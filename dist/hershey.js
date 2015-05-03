@@ -47,7 +47,10 @@
 	window.hershey = {
 		Progress: __webpack_require__(1),
 		Tooltip: __webpack_require__(2),
-		Carousel: __webpack_require__(3)
+		Carousel: __webpack_require__(3),
+	  
+	  // React components,
+	  TagInput: __webpack_require__(4)   
 	};
 
 
@@ -55,9 +58,9 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Progress = function(elem) {
+	var Progress = function (elem) {
 		// let the element become a progress bar
-		if(!elem || !/progress/.test(elem.className)) throw new Error('The element should with class \'progress\' which is defined by hershey');
+		if (!elem || !/progress/.test(elem.className)) throw new Error('The element should with class \'progress\' which is defined by hershey');
 
 		// attach progress backdrop
 		var backdrop = document.createElement('div');
@@ -66,10 +69,10 @@
 
 		var value;
 		Object.defineProperty(this, 'value', {
-			get: function() { return value; },
-			set: function(val) {
-				if(isNaN(+val) || val < 0) val = 0;
-				if(val > 100) val = 100;
+			get: function () { return value; },
+			set: function (val) {
+				if (isNaN(+val) || val < 0) val = 0;
+				if (val > 100) val = 100;
 				value = val;
 				// set value 0-100
 				backdrop.style.width = val + '%';
@@ -84,15 +87,15 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var utils = __webpack_require__(4);
+	var utils = __webpack_require__(6);
 	// constructor
-	var Tooltip = function() {
+	var Tooltip = function () {
 
 	    this.init();
 	};
 
 	// init dom elemnt
-	Tooltip.prototype.init = function() {
+	Tooltip.prototype.init = function () {
 
 	    var tooltip = document.createElement('div');
 	    tooltip.className = 'tooltip';
@@ -108,25 +111,25 @@
 	    this.content = content;
 
 	    var self = this;
-	    this.tooltipshowHandler = function(e) {
+	    this.tooltipshowHandler = function (e) {
 	        show.call(self);
-	    }
-	    this.tooltiphideHandler = function(e) {
+	    };
+	    this.tooltiphideHandler = function (e) {
 	        hide.call(self);
-	    }
+	    };
 
 	    Object.defineProperty(this, 'title', {
-	        get: function() { return this.content.innerText || this.content.textContent; },
-	        set: function(title) {
+	        get: function () { return this.content.innerText || this.content.textContent; },
+	        set: function (title) {
 	            this.content.innerText ? (this.content.innerText = title) : (this.content.textContent = title);
 	        }
 	    });
 	};
 
 	// append tooltip instance to element
-	Tooltip.prototype.appendTo = function(elem, dir, title) {
+	Tooltip.prototype.appendTo = function (elem, dir, title) {
 
-	    if(!utils.isDOMElement(elem)) throw new Error("Only accept the HTMLElement.");
+	    if (!utils.isDOMElement(elem)) throw new Error("Only accept the HTMLElement.");
 
 	    // control direction of the tooltip instance
 	    dir = dir || 'top';
@@ -137,77 +140,79 @@
 	    this.title = title;
 
 	    this.setDirection(dir);
-	    
-	    if(title) {
+
+	    if (title) {
 	        this.target.addEventListener('mouseenter', this.tooltipshowHandler);
 	        this.target.addEventListener('mouseleave', this.tooltiphideHandler);
 	    }
 	};
 
 	// subtract tooltip instance
-	Tooltip.prototype.subtract = function() {
+	Tooltip.prototype.subtract = function () {
 
-	    if(this.target) {
+	    if (this.target) {
 	        this.target.removeEventListener('mouseenter', this.tooltipshowHandler);
 	        this.target.removeEventListener('mouseleave', this.tooltiphideHandler);
-	        this.target = null; 
+	        this.target = null;
 	    }
 	};
 
 	// change the direction of the instance, re-compute position
-	Tooltip.prototype.setDirection = function(dir) {
+	Tooltip.prototype.setDirection = function (dir) {
 	    this.dir = dir;
 	    utils.addClass(this.instance, dir);
 	    utils.addClass(this.instance, 'slide' + dir);
 	};
 
 	// compute the position of tooltip
-	Tooltip.prototype.computePosition = function() {
+	Tooltip.prototype.computePosition = function () {
 
 	    var pos = {
 	        top: this.target.offsetTop,
 	        left: this.target.offsetLeft
 	    }, top, left;
 
-	    switch(this.dir) {
-	      case 'top': {
-	        top = pos.top - this.instance.offsetHeight - 6 - 2; // leave some space for two elemnt
-	        left = pos.left + this.target.offsetWidth / 2 - this.instance.offsetWidth / 2;
-	        break;
-	      }
-	      case 'bottom': {
-	        top = pos.top + this.target.offsetHeight + 6 + 2;
-	        left = pos.left + this.target.offsetWidth / 2 - this.instance.offsetWidth / 2;
-	        break;
-	      }
-	      case 'left': {
-	        top = pos.top + this.target.offsetHeight / 2 - this.instance.offsetHeight / 2;
-	        left = pos.left - this.instance.offsetWidth - 6 - 2;
-	        break;
-	      }
-	      case 'right':
-	      default: {
-	        top = pos.top + this.target.offsetHeight / 2 - this.instance.offsetHeight / 2;
-	        left = pos.left + this.target.offsetWidth + 6 + 2;
-	        break;
-	      }
+	    switch (this.dir) {
+	        case 'top': {
+	            top = pos.top - this.instance.offsetHeight - 6 - 2; // leave some space for two elemnt
+	            left = pos.left + this.target.offsetWidth / 2 - this.instance.offsetWidth / 2;
+	            break;
+	        }
+	        case 'bottom': {
+	            top = pos.top + this.target.offsetHeight + 6 + 2;
+	            left = pos.left + this.target.offsetWidth / 2 - this.instance.offsetWidth / 2;
+	            break;
+	        }
+	        case 'left': {
+	            top = pos.top + this.target.offsetHeight / 2 - this.instance.offsetHeight / 2;
+	            left = pos.left - this.instance.offsetWidth - 6 - 2;
+	            break;
+	        }
+	        case 'right':
+	        default: {
+	            top = pos.top + this.target.offsetHeight / 2 - this.instance.offsetHeight / 2;
+	            left = pos.left + this.target.offsetWidth + 6 + 2;
+	            break;
+	        }
 	    }
+	    
 	    return {
-	        top: top, left: left
-	    }
+	        top: top,
+	        left: left
+	    };
 	};
 
-	 function show() {
+	function show() {
 	    // clear animate timeout
-	    if(this.clr) clearTimeout(this.clr);
+	    if (this.clr) clearTimeout(this.clr);
 
 	    // remove obsolete effect class
 	    utils.removeClass(this.instance, 'positioned');
 	    utils.removeClass(this.instance, 'fadeOut');
 
 	    this.target.parentElement.appendChild(this.instance);
-	    
-	    var pos = this.computePosition();       
+
+	    var pos = this.computePosition();
 	    this.instance.style.top = pos.top + 'px';
 	    this.instance.style.left = pos.left + 'px';
 
@@ -222,16 +227,16 @@
 	    utils.addClass(this.instance, 'fadeOut');
 
 	    var self = this;
-	    this.clr = setTimeout(function() {
+	    this.clr = setTimeout(function () {
 	      
-	      // reset position
-	      self.instance.style.top = '';
-	      self.instance.style.left = '';
-	      // remove effect
-	      utils.removeClass(self.instance, 'fadeOut');
-	      utils.removeClass(self.instance, 'positioned');
+	        // reset position
+	        self.instance.style.top = '';
+	        self.instance.style.left = '';
+	        // remove effect
+	        utils.removeClass(self.instance, 'fadeOut');
+	        utils.removeClass(self.instance, 'positioned');
 
-	      self.instance.parentElement.removeChild(self.instance);
+	        self.instance.parentElement.removeChild(self.instance);
 	    }, 500); // time of animation
 	}
 
@@ -242,12 +247,12 @@
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var utils = __webpack_require__(4);
+	var utils = __webpack_require__(6);
 	var offset = 0, cit;
 
-	var Carousel = function(elem) {
+	var Carousel = function (elem) {
 
-	    if(!utils.isDOMElement(elem)) throw new Error("Only accept the HTMLElement.");
+	    if (!utils.isDOMElement(elem)) throw new Error("Only accept the HTMLElement.");
 
 	    this.instance = elem;
 	    this.items = [].slice.call(elem.children);
@@ -255,14 +260,14 @@
 
 	    var self = this;
 	    offset = parseInt(window.getComputedStyle(this.instance.parentElement).width);
-	    
+
 	    var current = 0;
 	    Object.defineProperty(self, "current", {
-	        get: function() { return current; },
-	        set: function(i) {
+	        get: function () { return current; },
+	        set: function (i) {
 	            // adjust index
 	            i = this.items.length && (i % this.items.length);
-	            while(i < 0) i += this.items.length;
+	            while (i < 0) i += this.items.length;
 
 	            self.goto(i);
 	            current = i;
@@ -270,33 +275,33 @@
 	    });
 	};
 
-	Carousel.prototype.goto = function(i) {
+	Carousel.prototype.goto = function (i) {
 	    var left = i * (- offset);
 	    this.instance.style.left = left + 'px';
 	};
 
-	Carousel.prototype.prev = function() {
-	    this.current --;
+	Carousel.prototype.prev = function () {
+	    this.current--;
 	};
 
-	Carousel.prototype.next = function() {
-	    this.current ++;
+	Carousel.prototype.next = function () {
+	    this.current++;
 	};
 
-	Carousel.prototype.autoPlay = function(interval) {
+	Carousel.prototype.autoPlay = function (interval) {
 	    var self = this;
 	    self.autoPlaying = true;
 
-	    if(cit) clearInterval(cit);
+	    if (cit) clearInterval(cit);
 
-	    cit = setInterval(function() {
-	        self.current ++;
+	    cit = setInterval(function () {
+	        self.current++;
 	    }, interval);
 	};
 
-	Carousel.prototype.pause = function() {
+	Carousel.prototype.pause = function () {
 	    this.autoPlaying = false;
-	    if(cit) clearInterval(cit);
+	    if (cit) clearInterval(cit);
 	};
 
 	module.exports = Carousel;
@@ -304,6 +309,61 @@
 
 /***/ },
 /* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/// <reference path="../../typings/react/react.d.ts"/>
+	var React = __webpack_require__(5);
+
+	module.exports = React.createClass({
+	  getInitialState: function () {
+	    return {
+	      tags: this.props.tags || []
+	    };
+	  },
+	  render: function () {
+	    /**
+	     * JSX syntax:
+	     *   <div class="tag-input">
+	     *     <span class="tag">tag</span>
+	     *     <input type="text">
+	     *   </div>
+	     */
+	    return React.DOM.div({ className: 'tag-input', onClick: this._click },
+	             this.state.tags.map(function (tag) {
+	               return React.DOM.span({ className: 'tag' }, tag); 
+	             }),
+	             React.DOM.input({ type: "text", ref: 'input', onKeyDown: this._keyDown })
+	      	   );
+	  },
+	  _click: function () {
+	    var input = React.findDOMNode(this.refs.input);
+	    input.focus();
+	  },
+	  _keyDown: function (e) {
+	    // ','
+	    if(e.keyCode === 188) {
+	      e.preventDefault();
+	      
+	      var input = React.findDOMNode(this.refs.input);
+	      var val = input.value.trim();
+	      var tags = this.state.tags;
+	      
+	      if(val && tags.indexOf(val) < 0) tags.push(val);
+	      input.value = '';
+	      
+	      this.setState({ tags: tags });
+	    }
+	  }
+	});
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = React;
+
+/***/ },
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports.addClass = function (elem, className) {

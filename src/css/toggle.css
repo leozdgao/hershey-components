@@ -1,0 +1,29 @@
+.toggle, .toggle-inner {
+  display: inline-block;
+  background-color: #ccc;
+  height: 1.5em;
+  width: 3em;
+  border-radius: 0.8em;
+  overflow: hidden;
+}
+.toggle-inner {
+  position: relative;
+  left: -1.5em;
+  background-color: green;
+  transition: all 0.3s;
+}
+.toggle-inner:after {
+  content: '';
+  position: absolute;
+  display: inline-block;
+  background-color: #fff;
+  height: 1.5em;
+  width: 1.5em;
+  border-radius: 50%;
+  top: 0;
+  right: 0;
+}
+.toggle input[type=checkbox] { display: none; }
+.toggle input:checked+.toggle-inner {
+  left: 0;
+}

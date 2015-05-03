@@ -1,7 +1,12 @@
+/// <reference path="typings/node/node.d.ts"/>
+
 module.exports = {
     entry: './src/js/main.js',
     output: {
-        path: require('path').join(__dirname, 'dist'),
+        path: './dist',
         filename: 'hershey.js'
+    },
+    externals: {
+      react: 'React'
     }
 };

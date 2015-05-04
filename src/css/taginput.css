@@ -1,19 +1,22 @@
 .tag-input {
   border: 1px solid #ccc;
-  border-radius: 0.5em;
-  padding: .5em;
+  border-radius: .5em;
 }
 .tag {
   display: inline-block;
-  padding: 0.2em 0.4em;
-  margin: 0.2em;
+  padding: .2em .4em;
+  margin: .2em;
   color: #fff;
   background-color: #ccc;
-  border-radius: 0.6em;
+  border-radius: .6em;
+  font-size: .8em;
 }
 .tag-input input {
   border: none;
-  font-size: 1em;
+  padding: .5em;
+  border-radius: 1em;
+  margin-left: .2em;
+  cursor: pointer;
 }
 .tag-input input:focus {
   outline: 0;

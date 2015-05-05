@@ -9,7 +9,7 @@ var rename = require('gulp-rename');
 var minify = require('gulp-minify-css'); //css
 var uglify = require('gulp-uglify'); //js
 var autoprefixer = require('gulp-autoprefixer');
-var livereload = require('gulp-livereload');
+var connect = require('gulp-connect');
 var jshint = require('gulp-jshint');
 var webpack = require('gulp-webpack');
 var del = require('del');
@@ -22,17 +22,6 @@ gulp.task('clean', function(cb) {
 
     del([files.release], cb);
 });
-
-// gulp.task('clean:lib', function(cb) {
-
-//  del([files.librealse || files.release ], cb);
-// });
-
-// gulp.task('copy:lib', ['clean:lib'], function() {
-
-//  return gulp.src(files.lib)
-//              .pipe(gulp.dest(files.librealse || files.release));
-// });
 
 gulp.task('release:css', ['clean'], function() {
 
@@ -50,10 +39,6 @@ gulp.task('release:css', ['clean'], function() {
 
 gulp.task('release:js', ['clean'], function() { // add jslint and uTest later maybe
 
-    // return gulp.src('src/js/main.js')
-    //      .pipe(webpack(require('./webpack.config.js')))
-    //      .pipe(gulp.dest(files.release));
-
     //js
     return gulp.src('src/js/main.js')
             .pipe(webpack(require('./webpack.config.js')))
@@ -69,7 +54,7 @@ gulp.task('release:js', ['clean'], function() { // add jslint and uTest later ma
 
 //-----------------------------------------------> for dev
 
-gulp.task('dev', ['concat', 'watch']);
+gulp.task('dev', ['serve']);
 gulp.task('concat', ['concat:css', 'concat:js']);
 
 // concat css
@@ -78,7 +63,7 @@ gulp.task('concat:css', function() {
     return gulp.src(files.css)
             .pipe(concat(files.destCss))
             .pipe(gulp.dest(files.release))
-            .pipe(livereload());
+            .pipe(connect.reload());
 });
 
 // concat js
@@ -87,13 +72,25 @@ gulp.task('concat:js', function() {
     return gulp.src('src/js/main.js')
             .pipe(webpack(require('./webpack.config.js')))
             .pipe(gulp.dest(files.release))
-            .pipe(livereload());
+            .pipe(connect.reload());
+});
+
+gulp.task('serve:view', function () {
+    
+    return gulp.src(files.views)
+            .pipe(connect.reload());
 });
 
 gulp.task('watch', function() {
-
-    livereload.listen();
-
+  
     gulp.watch(files.js, ['concat:js']);
     gulp.watch(files.css, ['concat:css']);
+    gulp.watch(files.views, ['serve:view']);
+});
+
+gulp.task('serve', ['concat', 'watch'], function () {
+  
+    connect.server({
+        livereload: true
+    });
 });

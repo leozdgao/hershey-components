@@ -49,7 +49,6 @@ module.exports = React.createClass({
           
         var val = input.value.trim();
         input.value = "";
-//        setTimeout(function () { input.value = ''; }); 
         this.addTag(val);
         break;
       };

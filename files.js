@@ -13,5 +13,6 @@ module.exports = {
   ],
 	destJs: 'hershey.js',
 	destCss: 'hershey.css',
-	release: path.join(__dirname, 'dist')
+	release: path.join(__dirname, 'dist'),
+  entry: './testpage.html'
 };

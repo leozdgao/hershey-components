@@ -12,6 +12,7 @@ var autoprefixer = require('gulp-autoprefixer');
 var connect = require('gulp-connect');
 var jshint = require('gulp-jshint');
 var webpack = require('gulp-webpack');
+var open = require('gulp-open');
 var del = require('del');
 
 // release
@@ -54,7 +55,18 @@ gulp.task('release:js', ['clean'], function() { // add jslint and uTest later ma
 
 //-----------------------------------------------> for dev
 
-gulp.task('dev', ['serve']);
+gulp.task('dev', ['serve'], function () {
+
+    if (files.entry) {
+        var opts = {
+            url: require('url').resolve("http://localhost:8080", files.entry),
+            app: "google chrome"
+        };
+      
+        gulp.src(files.entry)
+            .pipe(open('', opts));
+    }
+});
 gulp.task('concat', ['concat:css', 'concat:js']);
 
 // concat css

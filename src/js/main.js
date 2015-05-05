@@ -4,5 +4,5 @@ window.hershey = {
 	Carousel: require('./carousel'),
   
   // React components,
-  TagInput: require('./taginput')   
+  TagInput: require('./taginput.jsx')   
 };

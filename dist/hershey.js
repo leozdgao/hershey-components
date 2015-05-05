@@ -50,7 +50,7 @@
 		Carousel: __webpack_require__(3),
 	  
 	  // React components,
-	  TagInput: __webpack_require__(4)   
+	  TagInput: __webpack_require__(5)   
 	};
 
 
@@ -87,7 +87,7 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var utils = __webpack_require__(6);
+	var utils = __webpack_require__(4);
 	// constructor
 	var Tooltip = function () {
 
@@ -247,7 +247,7 @@
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var utils = __webpack_require__(6);
+	var utils = __webpack_require__(4);
 	var offset = 0, cit;
 
 	var Carousel = function (elem) {
@@ -311,81 +311,6 @@
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/// <reference path="../../typings/react/react.d.ts"/>
-	var React = __webpack_require__(5);
-
-	module.exports = React.createClass({
-	  getInitialState: function () {
-	    return {
-	      tags: this.props.tags || []
-	    };
-	  },
-	  render: function () {
-	    /**
-	     * JSX syntax:
-	     *   <div class="tag-input">
-	     *     <span class="tag">tag</span>
-	     *     <input type="text">
-	     *   </div>
-	     */
-	//    var self = this;
-	    return React.DOM.div({ className: 'tag-input', onClick: this._click },
-	             this.state.tags.map(function (tag) {
-	               return React.DOM.span({ className: 'tag' }, tag); 
-	             }),
-	             React.DOM.input({ type: "text", ref: 'input', onKeyDown: this._keyDown })
-	      	   );
-	  },
-	  addTag: function (val) {
-	    var tags = this.state.tags;
-	    if(val && tags.indexOf(val) < 0) tags.push(val);
-	    
-	    this.setState({ tags: tags });
-	  },
-	  removeTag: function (i) { console.log('remove');
-	    var tags = this.state.tags;
-	    if(typeof i == 'undefined') i = tags.length - 1;
-	    tags.splice(i, 1);
-	    
-	    this.setState({ tags: tags });
-	  },
-	  _click: function () {
-	    var input = React.findDOMNode(this.refs.input);
-	    input.focus();
-	  },
-	  _keyDown: function (e) {
-	    var input = React.findDOMNode(this.refs.input);
-	    
-	    switch(e.keyCode) {
-	      case 188: { // add tag if ','
-	        e.preventDefault();  // prevent the input of ','
-	          
-	        var val = input.value.trim();
-	        input.value = "";
-	        this.addTag(val);
-	        break;
-	      };
-	      case 8: { // remove tag if 'del'
-	        if(input.value == '') this.removeTag(); 
-	        break;
-	      };
-	      default: {
-	        // dynamic adjust input width
-	      };
-	    }
-	  }
-	});
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = React;
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
 	exports.addClass = function (elem, className) {
 
 	    if(elem.classList) elem.classList.add(className);
@@ -420,6 +345,79 @@
 	    return elem instanceof HTMLElement;
 	};
 
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/// <reference path="../../typings/react/react.d.ts"/>
+	var React = __webpack_require__(6);
+
+	module.exports = React.createClass({displayName: "module.exports",
+	  getInitialState: function () {
+	    return {
+	      tags: this.props.tags || []
+	    };
+	  },
+	  render: function () {
+	    var that = this;
+	    var tags = this.state.tags.map(function (tag, i) {
+	      return (React.createElement("span", {className: "tag"}, tag, " ", React.createElement("span", {className: "tag-remove", onClick: function() { that.removeTag(i); }}, "x"))); 
+	    });
+
+	    return (
+	      React.createElement("div", {className: "tag-input", onClick: this._click}, 
+	        tags, 
+	        React.createElement("input", {type: "text", ref: "input", onKeyDown: this._keyDown})
+	      )
+	      );
+	  },
+	  addTag: function (val) {
+	    var tags = this.state.tags;
+	    if(val && tags.indexOf(val) < 0) tags.push(val);
+	    
+	    this.setState({ tags: tags });
+	  },
+	  removeTag: function (i) {
+	    var tags = this.state.tags;
+	    if(typeof i == 'undefined') i = tags.length - 1;
+	    tags.splice(i, 1);
+	    
+	    this.setState({ tags: tags });
+	  },
+	  _click: function () {
+	    var input = React.findDOMNode(this.refs.input);
+	    input.focus();
+	  },
+
+	  _keyDown: function (e) {
+	    var input = React.findDOMNode(this.refs.input);
+	    
+	    switch(e.keyCode) {
+	      case 188: { // add tag if ','
+	        e.preventDefault();  // prevent the input of ','
+	          
+	        var val = input.value.trim();
+	        input.value = "";
+	        this.addTag(val);
+	        break;
+	      };
+	      case 8: { // remove tag if 'del'
+	        if(input.value == '') this.removeTag(); 
+	        break;
+	      };
+	      default: {
+	        // dynamic adjust input width
+	      };
+	    }
+	  }
+	});
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = React;
 
 /***/ }
 /******/ ]);

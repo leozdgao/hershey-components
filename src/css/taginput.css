@@ -6,17 +6,25 @@
   display: inline-block;
   padding: .2em .4em;
   margin: .2em;
-  color: #fff;
-  background-color: #ccc;
-  border-radius: .6em;
+  color: #333;
+  background-color: #95E8A0;
+  border-radius: .2em;
   font-size: .8em;
+  font-weight: 300;
+}
+.tag .tag-remove {
+  display: inline-block;
+  color: #666;
+  font-size: .7em;
+  padding-bottom: 3px;
+  cursor: pointer;
 }
 .tag-input input {
   border: none;
   padding: .5em;
   border-radius: 1em;
   margin-left: .2em;
-  cursor: pointer;
+  cursor: default;
 }
 .tag-input input:focus {
   outline: 0;

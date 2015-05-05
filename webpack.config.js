@@ -10,5 +10,10 @@ module.exports = {
     },
     externals: {
       react: 'React'
+    },
+    module: {
+      loaders: [
+        { test: /\.jsx$/, loader: 'jsx-loader' }
+      ]
     }
 };

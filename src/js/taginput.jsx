@@ -7,6 +7,11 @@ module.exports = React.createClass({
       tags: this.props.tags || []
     };
   },
+  componentDidMount: function () {
+    var input = React.findDOMNode(this.refs.input);
+    var width = this._getElementWidth(input);
+    this._initialInputWidth = width;
+  },
   render: function () {
     var that = this;
     var tags = this.state.tags.map(function (tag, i) {
@@ -16,7 +21,8 @@ module.exports = React.createClass({
     return (
       <div className="tag-input" onClick={this._click}>
         {tags}
-        <input type="text" ref="input" onKeyDown={this._keyDown} />
+        <input type="text" ref="input" onKeyDown={this._keyDown} onKeyUp={this._keyUp} />
+        <span className="hidden" ref="hidden"></span>
       </div>
       );
   },
@@ -37,7 +43,6 @@ module.exports = React.createClass({
     var input = React.findDOMNode(this.refs.input);
     input.focus();
   },
-
   _keyDown: function (e) {
     var input = React.findDOMNode(this.refs.input);
     
@@ -47,6 +52,7 @@ module.exports = React.createClass({
           
         var val = input.value.trim();
         input.value = "";
+        input.style.width = this._initialInputWidth + "px";
         this.addTag(val);
         break;
       };
@@ -58,5 +64,21 @@ module.exports = React.createClass({
         // dynamic adjust input width
       };
     }
+  },
+  _keyUp: function (e) {
+    var input = React.findDOMNode(this.refs.input);
+    var hidden = React.findDOMNode(this.refs.hidden);
+
+    hidden.textContent = input.value;
+
+    var wInput = this._getElementWidth(input); console.log(wInput);
+    var wHidden = this._getElementWidth(hidden); console.log(wHidden);
+    if(wHidden + 20 > wInput) { console.log('obj');
+      input.style.width = wInput + 20 + "px";
+    }
+  },
+  _getElementWidth: function (elem) {
+    var rect = elem.getBoundingClientRect();
+    return rect.right - rect.left;
   }
 });

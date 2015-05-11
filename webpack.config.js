@@ -3,10 +3,14 @@
 var path = require('path');
 
 module.exports = {
-    entry: './src/js/main.js',
+    entry: {
+      'native': './src/native/main.js',
+      'react': './src/react/main.js',
+      // 'jquery': './src/jquery/main.js'
+    },
     output: {
         path: path.join(__dirname, './dist'),
-        filename: 'hershey.js'
+        filename: 'hershey.[name].js'
     },
     externals: {
       react: 'React'

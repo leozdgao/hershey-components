@@ -5,8 +5,7 @@ var path = require('path');
 module.exports = {
     entry: {
       'native': './src/native/main.js',
-      'react': './src/react/main.js',
-      // 'jquery': './src/jquery/main.js'
+      'react': './src/react/main.js'
     },
     output: {
         path: path.join(__dirname, './dist'),

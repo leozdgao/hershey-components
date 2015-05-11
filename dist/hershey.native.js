@@ -84,7 +84,7 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var utils = __webpack_require__(6);
+	var utils = __webpack_require__(4);
 	// constructor
 	var Tooltip = function () {
 
@@ -244,7 +244,7 @@
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var utils = __webpack_require__(6);
+	var utils = __webpack_require__(4);
 	var offset = 0, cit;
 
 	var Carousel = function (elem) {
@@ -305,9 +305,7 @@
 
 
 /***/ },
-/* 4 */,
-/* 5 */,
-/* 6 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports.addClass = function (elem, className) {

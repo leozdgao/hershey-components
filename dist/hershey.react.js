@@ -45,8 +45,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	window.hershey_react = {
-	  TagInput: __webpack_require__(4),
-	  Toggle: __webpack_require__(5)
+	  TagInput: __webpack_require__(5),
+	  Toggle: __webpack_require__(6)
 	}
 
 
@@ -54,7 +54,8 @@
 /* 1 */,
 /* 2 */,
 /* 3 */,
-/* 4 */
+/* 4 */,
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/// <reference path="../../typings/react/react.d.ts"/>
@@ -143,7 +144,7 @@
 	});
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/// <reference path="../../typings/react/react.d.ts"/>
@@ -165,7 +166,6 @@
 	});
 
 /***/ },
-/* 6 */,
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 

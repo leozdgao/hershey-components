@@ -20,6 +20,9 @@
 /*debug*/
 .carousel button { z-index: 10; }
 
+.content-menu {
+  
+}
 .form-reverse {
     background: #333;
     color: #fff;

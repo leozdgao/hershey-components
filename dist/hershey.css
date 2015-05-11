@@ -117,6 +117,9 @@ body {
 	font-size: 16px;
 	color: #333;
 }
+html, body {
+  height: 100%;
+}
 .progress {
 	display: block;
 	position: relative;

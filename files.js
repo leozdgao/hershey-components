@@ -2,9 +2,9 @@ var path = require('path');
 
 module.exports = {
 	js: [
-		'src/js/utils.js',
-		'src/js/*.js',
-    'src/js/*.jsx'
+//		'src/**/utils.js',
+		'src/**/*.js',
+    'src/**/*.jsx'
 	],
 	css: [
 		'src/css/*.css'

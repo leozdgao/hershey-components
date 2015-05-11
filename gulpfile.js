@@ -83,6 +83,9 @@ gulp.task('concat:css', function () {
 
   return gulp.src(files.css)
     .pipe(concat(files.destCss))
+    .pipe(autoprefixer({
+      browsers: ['> 5%', 'last 5 version', 'ie 8']
+    })) // auto-prefix
     .pipe(gulp.dest(files.release))
     .pipe(connect.reload());
 });

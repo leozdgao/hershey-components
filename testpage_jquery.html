@@ -18,9 +18,14 @@
   <div class="block"></div>
   <script>
     $('.block').contextMenu({
-      'Add item': function () {
-        console.log('aa');
-      }
+      'Add item': {
+        'Sub': function () {
+          console.log('Click me');
+        }
+      },
+      'Remove': function () {
+        console.log('Hello World');
+      },
     });
   </script>
 </body>

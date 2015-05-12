@@ -21,7 +21,39 @@
 .carousel button { z-index: 10; }
 
 .content-menu {
-  
+  position: absolute;
+  font-size: .8em;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: .3em;
+  box-shadow: 0 0 2px #ccc;
+  width: 10em;
+  opacity: 0;
+  -webkit-transition: opacity .3s;
+          transition: opacity .3s;
+}
+.content-menu.show {
+  opacity: 1;
+}
+.content-menu-item {
+  position: relative;
+  padding: .5em .8em;
+  cursor: pointer;
+}
+.content-menu-item .content-menu { font-size: 1em; }
+.content-menu-item.active {
+  background: #eee;
+}
+.content-menu-item.caret:after {
+  position: absolute;
+  top: 1.25em;
+  right: 1em;
+  width: 0;
+  height: 0;
+  content: '';
+  border: .35em solid transparent;
+  border-left: .35em solid #333;
+  border-right-style: none;
 }
 .form-reverse {
     background: #333;

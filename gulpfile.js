@@ -144,7 +144,7 @@ gulp.task('dev:jq', ['serve'], function () {
 function getChromeAppName() {
   switch(os.platform()) {
     case 'win32': return 'chrome';
-    case 'osx': return  'google chrome';
+    case 'darwin': return  'google chrome'; // mac os
     case 'linux': return 'google-chrome';
   }
 }

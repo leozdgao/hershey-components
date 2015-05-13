@@ -19,15 +19,17 @@
         }, 300);
       });
       
-      return this.on('contextmenu', function (e) {
-        e.preventDefault();
-        
-        var x = e.offsetX, y = e.offsetY;
-        $menu.css({ left: x, top: y }).appendTo($body);
-        // bind item click event
-        bindEvent();
-        // effect
-        setTimeout(function () { $menu.addClass('show'); });
+      return this.each(function (i, ele) {
+        $(ele).on('contextmenu', function (e) {
+          e.preventDefault();
+          
+          var x = e.offsetX, y = e.offsetY;
+          $menu.css({ left: x, top: y }).appendTo($body);
+          // bind item click event
+          bindEvent();
+          // effect
+          setTimeout(function () { $menu.addClass('show'); });
+        });
       });
       
       function bindEvent() {

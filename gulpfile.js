@@ -1,5 +1,6 @@
 'use strict';
 
+var os = require('os');
 var gulp = require('gulp');
 var files = require('./files');
 
@@ -69,7 +70,7 @@ gulp.task('dev', ['serve'], function () {
   if (files.entry) {
     var opts = {
       url: require('url').resolve("http://localhost:8080", files.entry),
-      app: "google chrome"
+      app: getChromeAppName()
     };
 
     gulp.src(files.entry)
@@ -131,10 +132,19 @@ gulp.task('dev:jq', ['serve'], function () {
   if (files.entry_jq) {
     var opts = {
       url: require('url').resolve("http://localhost:8080", files.entry_jq),
-      app: "google chrome"
+      app: getChromeAppName()
     };
 
     gulp.src(files.entry_jq)
       .pipe(open('', opts));
   }
 });
+
+
+function getChromeAppName() {
+  switch(os.platform()) {
+    case 'win32': return 'chrome';
+    case 'osx': return  'google chrome';
+    case 'linux': return 'google-chrome';
+  }
+}
